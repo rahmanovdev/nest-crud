@@ -6,13 +6,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
 
-  // Swagger конфигурациясы
   const config = new DocumentBuilder()
     .setTitle('Items API')
     .setDescription('Items API документациясы')
     .setVersion('1.0')
-    .addServer(`http://localhost:/${process.env.PORT ?? 3000}`) // Локалдык сервер
-    .addServer(`${process.env.PORT ?? 3000}`) // Продакшн сервер (deploy кылгандан кийин)
+    .addServer('/') // Маанилүү: бул сапты кошуңуз
+    .addServer('https://your-vercel-url.vercel.app') // Deploy кылгандан кийин Vercel URL'ди кошуңуз
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
